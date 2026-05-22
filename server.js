@@ -1,4 +1,7 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const http    = require('http');
 const { Server } = require('socket.io');
@@ -12,7 +15,7 @@ const io     = new Server(server, { cors: { origin: '*' } });
 app.use(cors());
 app.use(express.json());
 
-// ── API routes ────────────────────────────────
+// ── API routes ─────────────────────────────────
 app.use('/api/auth',          require('./routes/auth'));
 app.use('/api/posts',         require('./routes/posts'));
 app.use('/api/users',         require('./routes/users'));
@@ -21,11 +24,11 @@ app.use('/api/notifications', require('./routes/notifications'));
 
 app.get('/health', (_, res) => res.json({ status: 'ok', ts: new Date() }));
 
-// ── Serve frontend estático ───────────────────
+// ── Serve frontend estático ────────────────────
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-// ── Socket.io ────────────────────────────────
+// ── Socket.io ──────────────────────────────────
 require('./socket')(io);
 
 const PORT = process.env.PORT || 3000;
