@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
-
+/* Fonts e icons carregados via <link> no HTML */
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* Telas principais */
+#auth-screen{display:flex}
+#app-screen{display:none;height:100vh;overflow:hidden}
 :root{
   --gold:#C8963E;--gold-l:#F0C060;--gold-d:#8A6020;
   --navy:#0A0E1A;--navy-m:#111827;--navy-c:#161D2E;--navy-h:#1C2540;

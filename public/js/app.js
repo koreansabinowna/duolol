@@ -164,7 +164,7 @@ async function logout() {
 function bootApp() {
   // Mostra o app, esconde o auth
   $('auth-screen').style.display = 'none';
-  $('app-screen').style.display  = 'block';
+  $('app-screen').style.display = 'flex';
 
   // Atualiza avatar no compositor
   updateMyAvatar();
@@ -799,10 +799,6 @@ async function pollOnlineCount() {
 
 // ── Init ───────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  // Garante estado inicial correto
-  $('app-screen').style.display  = 'none';
-  $('auth-screen').style.display = 'flex';
-
   if (token && me) {
     bootApp();
   }
