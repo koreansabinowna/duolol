@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DUOQ.GG — Encontre seu Duo no LoL</title>
-  <meta name="description" content="Rede social para encontrar duo no League of Legends. Solo, Flex, todos os elos.">
+  <meta name="description" content="Rede social para encontrar duo no League of Legends.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23C8963E'/><text y='22' x='50%' text-anchor='middle' font-size='18' font-weight='bold' fill='%230A0E1A'>D</text></svg>">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<!-- ═══════════════════════════ AUTH ═══════════════════════════ -->
+<!-- ══════════════════ AUTH ══════════════════ -->
 <div id="auth-screen">
   <div class="auth-box">
     <div class="auth-logo">⚔ DUOQ.GG</div>
@@ -52,10 +55,10 @@
       </div>
       <div class="form-group">
         <label class="form-label">Nick no LoL</label>
-        <div class="form-row" style="grid-template-columns:1fr auto">
+        <div style="display:grid;grid-template-columns:1fr 16px 90px;gap:8px;align-items:center">
           <input id="reg-lol-name" class="form-input" type="text" placeholder="NomeDeInvocador" required maxlength="50">
-          <div style="display:flex;align-items:center;color:var(--dim);font-weight:700;font-size:18px;padding:0 4px">#</div>
-          <input id="reg-lol-tag" class="form-input" type="text" placeholder="BR1" required maxlength="10" style="max-width:90px">
+          <span style="color:var(--dim);font-weight:700;font-size:18px;text-align:center">#</span>
+          <input id="reg-lol-tag" class="form-input" type="text" placeholder="BR1" required maxlength="10">
         </div>
         <div class="form-hint">Exemplo: VoidWalker # BR1</div>
       </div>
@@ -64,8 +67,8 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════ APP ════════════════════════════ -->
-<div id="app-screen">
+<!-- ══════════════════ APP ══════════════════ -->
+<div id="app-screen" style="display:none">
   <div class="layout">
 
     <!-- Sidebar -->
@@ -99,17 +102,17 @@
       </div>
     </aside>
 
-    <!-- Main -->
+    <!-- Main content -->
     <div class="main">
 
       <!-- FEED -->
-      <div class="page active" id="page-feed" style="overflow:hidden">
+      <div class="page active" id="page-feed">
         <div class="top-bar">
           <span class="top-bar-title">FEED</span>
           <button class="pill p-gold on feed-filter" data-filter="solo" onclick="setFilter('solo')">Solo/Duo</button>
           <button class="pill p-blue feed-filter" data-filter="flex" onclick="setFilter('flex')">Flex</button>
           <button class="pill feed-filter" data-filter="all" onclick="setFilter('all')">Todos</button>
-          <button onclick="loadFeed()" style="background:none;border:none;cursor:pointer;color:var(--dim);font-size:16px;padding:4px" title="Atualizar">
+          <button onclick="loadFeed()" style="background:none;border:none;cursor:pointer;color:var(--dim);font-size:18px;padding:4px;margin-left:4px" title="Atualizar">
             <i class="ti ti-refresh"></i>
           </button>
         </div>
@@ -118,26 +121,24 @@
             <div class="live-dot"></div>
             <span class="live-text"><span class="live-count" id="online-count">...</span> invocadores procurando duo agora</span>
           </div>
-
           <div class="composer">
             <div class="composer-body">
-              <div class="av av-md" style="background:var(--gold);flex-shrink:0" id="my-avatar-feed"></div>
+              <div class="av av-md" id="my-avatar-feed" style="background:var(--gold);flex-shrink:0;font-weight:700;color:var(--navy)">?</div>
               <textarea class="composer-ta" id="post-textarea" placeholder="Procurando duo? Conta sua lane, elo e horário..." maxlength="500" rows="2"></textarea>
             </div>
             <div class="composer-foot">
-              <button class="tag tag-solo on composer-tag" onclick="setPostQueue('SOLO', this)">Solo/Duo</button>
-              <button class="tag tag-flex composer-tag" onclick="setPostQueue('FLEX', this)">Flex</button>
-              <button class="tag composer-tag" onclick="setPostQueue('BOTH', this)" style="background:rgba(100,100,100,.12);color:var(--muted);border-color:var(--dim)">Ambos</button>
+              <button class="tag tag-solo on composer-tag" onclick="setPostQueue('SOLO',this)">Solo/Duo</button>
+              <button class="tag tag-flex composer-tag" onclick="setPostQueue('FLEX',this)">Flex</button>
+              <button class="tag composer-tag" onclick="setPostQueue('BOTH',this)" style="background:rgba(100,100,100,.12);color:var(--muted);border-color:var(--dim)">Ambos</button>
               <button class="btn-post" id="btn-publish" onclick="publishPost()">POSTAR</button>
             </div>
           </div>
-
           <div id="feed-posts"></div>
         </div>
       </div>
 
       <!-- EXPLORAR -->
-      <div class="page" id="page-explore" style="overflow:hidden">
+      <div class="page" id="page-explore">
         <div class="top-bar">
           <span class="top-bar-title">EXPLORAR</span>
           <input class="search-inp" id="explore-search" placeholder="Buscar jogador..." onkeyup="if(event.key==='Enter')searchPlayers()">
@@ -149,13 +150,13 @@
       </div>
 
       <!-- MENSAGENS -->
-      <div class="page" id="page-messages" style="overflow:hidden">
+      <div class="page" id="page-messages">
         <div class="top-bar"><span class="top-bar-title">MENSAGENS</span></div>
         <div class="scrollable" id="conv-list"></div>
       </div>
 
       <!-- NOTIFICAÇÕES -->
-      <div class="page" id="page-notifications" style="overflow:hidden">
+      <div class="page" id="page-notifications">
         <div class="top-bar">
           <span class="top-bar-title">NOTIFICAÇÕES</span>
           <button onclick="loadNotifications()" style="margin-left:auto;background:none;border:none;cursor:pointer;color:var(--dim);font-size:13px;display:flex;align-items:center;gap:4px">
@@ -166,7 +167,7 @@
       </div>
 
       <!-- PERFIL -->
-      <div class="page" id="page-profile" style="overflow:hidden">
+      <div class="page" id="page-profile">
         <div class="top-bar"><span class="top-bar-title">PERFIL</span></div>
         <div class="scrollable" id="profile-content">
           <div class="loading"><div class="spinner"></div> Carregando...</div>
@@ -190,13 +191,13 @@
       </div>
       <div class="rp-section">
         <div class="rp-title">Ações Rápidas</div>
-        <button onclick="syncElo()" class="btn-outline" style="width:100%;margin-bottom:8px;justify-content:center;display:flex;align-items:center;gap:6px">
+        <button onclick="syncElo()" class="btn-outline" style="width:100%;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px">
           <i class="ti ti-refresh"></i> Sincronizar Elo
         </button>
-        <button onclick="loadPage('explore')" class="btn-outline" style="width:100%;margin-bottom:8px;justify-content:center;display:flex;align-items:center;gap:6px">
+        <button onclick="loadPage('explore')" class="btn-outline" style="width:100%;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:6px">
           <i class="ti ti-users"></i> Encontrar Duo
         </button>
-        <button onclick="logout()" class="btn-outline" style="width:100%;border-color:rgba(239,68,68,.35);color:#FCA5A5;justify-content:center;display:flex;align-items:center;gap:6px">
+        <button onclick="logout()" class="btn-outline" style="width:100%;border-color:rgba(239,68,68,.35);color:#FCA5A5;display:flex;align-items:center;justify-content:center;gap:6px">
           <i class="ti ti-logout"></i> Sair
         </button>
       </div>
@@ -208,9 +209,9 @@
 <!-- Chat flutuante -->
 <div class="chat-win" id="chat-window">
   <div class="chat-win-head">
-    <div class="av av-sm" style="background:var(--blue)" id="chat-av-header"></div>
+    <div class="av av-sm" style="background:var(--blue);color:#fff" id="chat-av-header"></div>
     <span class="chat-win-name" id="chat-partner-name">...</span>
-    <button class="chat-win-close" onclick="$('chat-window').classList.remove('open')"><i class="ti ti-x"></i></button>
+    <button class="chat-win-close" onclick="document.getElementById('chat-window').classList.remove('open')"><i class="ti ti-x"></i></button>
   </div>
   <div class="chat-msgs" id="chat-msgs"></div>
   <div class="chat-input-row">
